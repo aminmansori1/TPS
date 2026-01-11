@@ -1,0 +1,91 @@
+
+########################################################
+
+@prefix : <http://www.example.org/ecole#> .     
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .   
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .      
+@prefix owl: <http://www.w3.org/2002/07/owl#> .             
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .            
+
+
+
+
+########################################################
+# Déclaration des classes principales de l'ontologie
+########################################################
+
+
+
+
+:Etablissement rdf:type rdfs:Class .
+# Représente un établissement scolaire (école, faculté, etc.)
+
+
+
+:Personne rdf:type rdfs:Class .
+# Classe générique pour toute personne dans le système
+
+
+
+:Professeur rdf:type rdfs:Class ;
+            rdfs:subClassOf :Personne .
+# Un professeur est une personne
+
+
+
+:Etudiant rdf:type rdfs:Class ;
+          rdfs:subClassOf :Personne .
+# Un étudiant est une personne
+
+
+
+:Filiere rdf:type rdfs:Class .
+# Représente une filière académique
+
+
+
+:Matiere rdf:type rdfs:Class .
+# Représente une matière enseignée
+
+
+
+
+:ChefFiliere rdf:type rdfs:Class ;
+             rdfs:subClassOf :Professeur .
+# Le chef de filière est un type particulier de professeur
+
+
+########################################################
+# Déclaration des propriétés (relations entre classes)
+########################################################
+
+
+
+:enseigne rdf:type rdf:Property ;
+          rdfs:domain :Professeur ;
+          rdfs:range :Matiere .
+# Un professeur enseigne une matière
+
+
+
+:etudie rdf:type rdf:Property ;
+        rdfs:domain :Etudiant ;
+        rdfs:range :Matiere .
+# Un étudiant étudie une matière
+
+
+
+:dirige rdf:type rdf:Property ;
+        rdfs:domain :ChefFiliere ;
+        rdfs:range :Filiere .
+# Un chef de filière dirige une filière
+
+
+
+########################################################
+# Contraintes logiques
+########################################################
+
+
+:Etudiant owl:disjointWith :Professeur .
+# Un individu ne peut pas être à la fois étudiant et professeur
